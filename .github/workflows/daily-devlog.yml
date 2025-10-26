@@ -2,6 +2,11 @@ name: daily-devlog
 on:
   schedule: [{ cron: "0 22 * * *" }]   # JST 07:00 = UTC 22:00
   workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write           # Issue作成・更新
+
 jobs:
   create:
     runs-on: ubuntu-latest
