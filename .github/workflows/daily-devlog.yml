@@ -1,1 +1,18 @@
-
+name: daily-devlog
+on:
+  schedule: [{ cron: "0 22 * * *" }]   # JST 07:00 = UTC 22:00
+  workflow_dispatch:
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Dev Log Issue
+        uses: imjohnbo/issue-bot@v3
+        with:
+          labels: "dev-log"
+          title: "Dev Log: ${{ steps.date.outputs.today }}"
+          body: "今日のログをここに。進捗/学び/課題/明日。"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - id: date
+        run: echo "today=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
