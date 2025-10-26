@@ -2,6 +2,37 @@ openapi: 3.0.1
 info: {title: crossborder-arb-local, version: "1.0"}
 servers: [{url: http://host.docker.internal:8000}]
 paths:
+  /sg_demand:
+    get:
+      parameters:
+        - {name: cats, in: query, schema: {type: string}, required: true}
+        - {name: days, in: query, schema: {type: integer}}
+      responses: {"200": {description: OK}}
+  /match:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sg_items: {type: array, items: {type: object}}
+      responses: {"200": {description: OK}}
+  /score:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                matches: {type: array, items: {type: object}}
+                fx_jpy_sgd: {type: number}
+                gst_rate: {type: number}
+                platform_fee_rate: {type: number}
+                payment_fee_rate: {type: number}
+                gm_threshold: {type: number}
+      responses: {"200": {description: OK}}
   /health:
     get:
       responses: {"200": {description: OK}}
