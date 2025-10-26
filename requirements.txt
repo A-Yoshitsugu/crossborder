@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+pandas
+pyyaml
+duckdb
+rapidfuzz
+python-dotenv
+pytest
