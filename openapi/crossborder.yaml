@@ -1,0 +1,7 @@
+openapi: 3.0.1
+info: {title: crossborder-arb-local, version: "1.0"}
+servers: [{url: http://host.docker.internal:8000}]
+paths:
+  /health:
+    get:
+      responses: {"200": {description: OK}}

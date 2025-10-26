@@ -1,0 +1,4 @@
+bands:
+  - { max_weight: 100, max_thickness: 3, method: letter, cost_sgd: 1.8 }
+  - { max_weight: 300, max_thickness: 3, method: letter, cost_sgd: 3.5 }
+  - { max_weight: 500, max_thickness: 3, method: small_packet, cost_sgd: 6.8 }
