@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: write         # タグ/リリース作成
+  pull-requests: write    # リリースPRの作成・更新
 
 jobs:
   release:
