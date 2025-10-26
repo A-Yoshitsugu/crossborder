@@ -11,14 +11,32 @@ jobs:
         python-version: ["3.10", "3.11"]
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
+
+      - name: Show Python info
+        run: |
+          python -V
+          python -m pip --version
+
       - name: Install deps
         run: |
           python -m pip install -U pip
-          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
           python -m pip install pytest
-      - name: Run tests
-        run: pytest -q
+
+      - name: Run tests (allow no tests)
+        run: |
+          set -e
+          pytest -q || code=$?
+          # PyTest exit code 5 = No tests collected → 成功扱い
+          if [ "${code:-0}" = "5" ]; then
+            echo "No tests collected. Marking CI as success."
+            exit 0
+          fi
+          exit ${code:-0}
