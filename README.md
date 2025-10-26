@@ -1,6 +1,25 @@
 # crossborder
 Shopeeの2国間差分
 
+## Memo
+1) APIを起動（CodespacesでもMacでも同じ）
+# プロジェクト直下で
+source .venv/bin/activate
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+
+※ このターミナルは起動したままにしておく（止めない）。
+
+確認（別ターミナルで）
+curl -s http://127.0.0.1:8000/health
+# → {"ok": true}
+
+
+Codespacesならブラウザで https://<id>-8000.app.github.dev/docs も開けるはず。
+（Portsタブで 8000 を Public にしておく）
+
+
+
 今後の開発フロー
 # 0. 前提（現状）
 
