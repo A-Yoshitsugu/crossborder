@@ -2,7 +2,7 @@
 Shopeeの2国間差分
 
 今後の開発フロー
-0. 前提（現状）
+# 0. 前提（現状）
 
 GitHub リポ：crossborder（Codespacesで作業中）
 
@@ -12,7 +12,7 @@ api/main.py は /health /sg_demand /match /score 実装済み
 
 CI（ci.yml）あり、通る（No tests 許容版）
 
-1. 依存 & ローカル実行の固定化
+# 1. 依存 & ローカル実行の固定化
 
 目的: Codespaces でも安定起動。将来の再現性を上げる。
 
@@ -48,7 +48,7 @@ git add -A
 git commit -m "chore: lock minimal requirements & run instructions"
 git push
 
-2. OpenAPI → Dify 連携
+# 2. OpenAPI → Dify 連携
 
 目的: Dify からローカル/公開APIを呼ぶ。
 
@@ -71,7 +71,7 @@ git add openapi/crossborder.yaml
 git commit -m "chore(openapi): configure server url for Dify"
 git push
 
-3. スコア通過の“見える化”（一時）
+# 3. スコア通過の“見える化”（一時）
 
 目的: ひとまず通過1件を作って動作確認。
 
@@ -82,7 +82,7 @@ git push
 チェック:
 POST /score のレスポンスが {"scored":[{...}]}（1件以上） になる。
 
-4. メール通知（API or Difyノード）
+# 4. メール通知（API or Difyノード）
 
 方法1：FastAPIの通知エンドポイント（/notify/email）を使う
 
@@ -99,7 +99,7 @@ Dify Workflow の最後に HTTP Tool: /notify/email を置く
 チェック:
 ワークフローを Run → メールが届く。
 
-5. Dify Workflow（本番フロー）
+# 5. Dify Workflow（本番フロー）
 
 目的: 1日1回のダイジェスト配信を自動化（JST）。
 
@@ -122,7 +122,7 @@ Email（または /notify/email）
 チェック:
 手動Runが成功 → Cron を ON。
 
-6. GitHub 側“開発ログ”仕組み
+# 6. GitHub 側“開発ログ”仕組み
 
 目的: 開発履歴が残るように。
 
@@ -135,7 +135,7 @@ daily-devlog.yml（毎朝空Issueを作る、権限：issues: write）
 チェック:
 Actions → daily-devlog が動き、Dev Log: YYYY-MM-DD のIssueが作成される。
 
-7. release-please でリリース運用（任意）
+# 7. release-please でリリース運用（任意）
 
 目的: CHANGELOG と GitHub Release を自動化。
 
@@ -162,7 +162,7 @@ jobs:
 チェック:
 push 後、リリースPRが自動で作成 → Merge でタグ & Release が作成。
 
-8. 実データ化（Playwright差し替え）
+# 8. 実データ化（Playwright差し替え）
 
 目的: /sg_demand のダミーを実データ収集に変更。
 
@@ -183,7 +183,7 @@ api/main.py の /sg_demand 内で
 
 容量節約したい場合は、先にローカル（Mac）でPlaywright、CodespacesはAPIだけでもOK。
 
-9. マッチ精度強化（後追い）
+# 9. マッチ精度強化（後追い）
 
 目的: JP候補とのマッチを改善し、誤一致を減らす。
 
@@ -196,7 +196,7 @@ RapidFuzz だけ → テキスト＋属性（サイズ/素材）ペナルティ�
 チェック:
 ダイジェストの誤検知が目に見えて減る（ログの「注意/NG」が少なくなる）。
 
-10. 差分配信（スパム防止）
+# 10. 差分配信（スパム防止）
 
 目的: 前日と差がない日はメールを短く、変化だけ通知。
 
@@ -207,7 +207,7 @@ DuckDBに直近の scored を保存（例：data/last_scored.duckdb）
 チェック:
 「新着0件」の日は“要約1行のみ”になる。
 
-11. 完成の定義（Doneの基準）
+# 11. 完成の定義（Doneの基準）
 
 Dify Workflow が 毎朝07:30 JST に自動実行
 
